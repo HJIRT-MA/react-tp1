@@ -15,7 +15,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     <AuthContext.Provider value={{ state, dispatch }}> 
       {children} 
     </AuthContext.Provider> 
-  ); 
+  );  
 } 
   
 // Custom hook pour consommer le context 

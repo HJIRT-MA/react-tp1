@@ -1,3 +1,5 @@
+/* Sidebar.module.css */
+
 .sidebar {
   width: 240px;
   border-right: 1px solid #ddd;
@@ -30,21 +32,35 @@
   padding: 0;
 }
 
+/* Nouvelles propriétés pour les liens de navigation */
 .item {
   display: flex;
   align-items: center;
+  gap: 12px;             /* Gère l'espace entre le point et le texte */
   padding: 12px 16px;
+  text-decoration: none; /* Indispensable pour enlever la ligne sous les NavLink */
+  border-radius: 8px;    /* Bords arrondis demandés */
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  color: #4b5563;        /* Gris foncé par défaut */
+  transition: all 0.2s ease;
 }
 
-.item:hover {
+/* L'état actif injecté par le NavLink */
+.active {
+  background-color: #dcfce7; /* Fond vert clair */
+  color: #166534;            /* Texte vert foncé */
+  font-weight: 600;          /* Texte en semi-gras */
+}
+
+/* Effet de survol uniquement sur les items qui ne sont pas actifs */
+.item:hover:not(.active) {
   background-color: #f5f5f5;
 }
 
+/* Le petit point de couleur */
 .dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  margin-right: 8px;
+  flex-shrink: 0; /* Sécurité : empêche le point de s'aplatir si le titre du projet est très long */
 }

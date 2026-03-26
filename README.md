@@ -1,73 +1,34 @@
-# React + TypeScript + Vite
+Q1 : Pourquoi <Navigate /> (composant) et pas navigate() (hook) ici ? 
+=>Ce code s'exécute pendant la phase de rendu de React, navigate() est fait pour être appelé en dehors du rendu par exemple un handler ou un useEffect.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+Q2 : Quelle différence entre navigate(from) et navigate(from, { replace: true }) ? 
+=>La différence principale réside dans la façon dont le routeur gère l'historique du navigateur ce qui impacte le comportement du bouton Retour
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Q3 : Après un POST, pourquoi fait-on setProjects(prev => [...prev, data]) plutôt qu’un 
+re-fetch GET ? 
+=>Cela permet d'afficher le nouveau projet instantanément pour l'utilisateur tout en évitant une requête réseau complète qui surchargerait inutilement le serveur.
 
-## React Compiler
+ Q4 : Testez ces scénarios :
+ =>a- /dashboard sans être connecté : Le composant <ProtectedRoute> va détecter que l'utilisateur n'est pas authentifié (grâce      au      contexte fourni par <AuthProvider>). Il va bloquer l'accès à <Dashboard /> et rediriger l'utilisateur vers /login.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+    b- /projects/1 sans être connecté : Exactement le même comportement. L'accès est intercepté par le <ProtectedRoute> qui protège cette route. Redirection vers /login.
 
-## Expanding the ESLint configuration
+    c- /nimportequoi (URL inexistante) : Cette URL ne correspond à aucune route spécifique, elle est donc capturée par la route "fourre-tout" (path="*"). Elle déclenche une <Navigate to="/dashboard" />.
+Résultat : Redirection vers /dashboard (qui, à son tour, renverra vers /login si l'utilisateur n'est pas connecté).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+    d- / (racine) : Capturé par la route path="/". L'utilisateur est immédiatement redirigé vers /dashboard. L'attribut replace indique que cette redirection remplace la racine (/) dans l'historique de navigation (pour éviter de boucler si on clique sur le bouton "Retour").
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+    e- Connecté puis bouton Retour du navigateur : Le BrowserRouter gère parfaitement l'historique.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Q5 : Quelle différence entre <Link> et <NavLink> ? Pourquoi NavLink ici ?
+=>Contrairement à un simple <Link>, <NavLink> détecte s'il correspond à l'URL actuelle, ce qui permet ici de mettre automatiquement en surbrillance visuelle le projet sélectionné dans le menu.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Q6 : Ce composant sert pour le POST ET le PUT. Qu’est-ce qui change entre les deux 
+usages ? 
+=>Pour un POST on passe des valeurs initiales vides pour créer un nouveau projet, tandis que pour un PUT on injecte les données du projet existant (initialName, initialColor) via les props pour les modifier.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Q7 : Arrêtez json-server et tentez un POST. Le message s’affiche ? 
+Q8 : Avec fetch, un 404 ne lance PAS d’erreur. Avec Axios, que se passe-t-il ? 
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+=>Oui, si le serveur est arrêté le message s'affiche bien (Network Error), car contrairement à fetch, Axios bascule automatiquement dans le bloc catch pour toute erreur HTTP (404, 500, ou serveur injoignable).

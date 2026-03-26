@@ -1,0 +1,54 @@
+/* Conteneur du formulaire */
+.form {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Champ de texte */
+.input {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s ease;
+  flex-grow: 1; /* Permet à l'input de prendre l'espace disponible */
+}
+
+/* Effet au clic (focus vert) */
+.input:focus {
+  border-color: #22c55e; /* Vert */
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+}
+
+/* Sélecteur de couleur */
+.colorPicker {
+  width: 40px;
+  height: 36px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background-color: transparent; /* Enlève le fond gris natif sur certains navigateurs */
+}
+
+/* Bouton de validation */
+.submit {
+  background-color: #22c55e; /* Fond vert */
+  color: white; /* Texte blanc */
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Bouton d'annulation */
+.cancel {
+  background-color: #6b7280; /* Fond gris */
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
