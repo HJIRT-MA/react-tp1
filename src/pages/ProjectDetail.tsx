@@ -19,7 +19,6 @@ export default function ProjectDetail() {
   const [loading, setLoading] = useState(true); 
   
   useEffect(() => { 
-    // On repasse en loading au cas où l'ID changerait (navigation entre projets)
     setLoading(true); 
     api.get(`/projects/${id}`) 
       .then(res => setProject(res.data)) 
