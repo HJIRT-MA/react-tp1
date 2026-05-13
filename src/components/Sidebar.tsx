@@ -2,9 +2,10 @@ import styles from './Sidebar.module.css';
 import { NavLink } from 'react-router-dom'; 
 
 interface Project { id: string; name: string; color: string; } 
-interface SidebarProps { projects: Project[]; isOpen: boolean; } 
+interface SidebarProps { projects: Project[]; isOpen: boolean; onRename: (project: Project) => void;} 
   
 export default function Sidebar({ projects, isOpen }: SidebarProps) { 
+  console.log('Sidebar re-render');
   return ( 
     <aside className={`${styles.sidebar} ${isOpen ? styles.open : styles.closed}`}> 
       <h2 className={styles.title}>Mes Projets</h2> 
