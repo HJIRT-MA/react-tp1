@@ -15,4 +15,11 @@ const eslintConfig = defineConfig([
   ]),
 ]);
 
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // Permet l'accès depuis ton réseau local
+  allowedDevOrigins: ['172.25.48.1'],
+};
+
+export default nextConfig;
 export default eslintConfig;
