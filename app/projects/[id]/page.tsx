@@ -1,17 +1,15 @@
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 
-// Pré-générer les pages au build
-export async function generateStaticParams() {
- const projects = await prisma.project.findMany();
- return projects.map(p => ({ id: String(p.id) }));
-}
+// On force le rendu dynamique pour éviter les plantages au build
+export const dynamic = 'force-dynamic';
+
 export default async function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
+    
     const project = await prisma.project.findUnique({
       where: { id: Number(id) }
     });
-
 
     if (!project) notFound();
   
@@ -22,9 +20,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
               borderRadius: '50%', background: project.color, marginRight: 8 }} />
               {project.name}
           </h1>
-              <p>Créé le : {project.createdAt.toLocaleDateString('fr-FR')}</p>
-              <a href="/dashboard">← Retour</a>
+          <p>Créé le : {project.createdAt.toLocaleDateString('fr-FR')}</p>
+          <a href="/dashboard">← Retour</a>
         </div>
- );
+    );
 }
-export const dynamic = 'force-dynamic';
