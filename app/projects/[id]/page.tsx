@@ -27,3 +27,4 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
         </div>
  );
 }
+export const dynamic = 'force-dynamic';
