@@ -145,3 +145,45 @@ Les API Routes fonctionneront toujours en tant que code, mais elles renverront u
 Q14 : Le cookie est HttpOnly. Un script XSS injecté dans la page peut-il le voler ? 
 
 Non, un script XSS ne peut pas voler le cookie car le navigateur interdit strictement au JavaScript (via document.cookie) d'accéder aux cookies marqués HttpOnly
+
+
+---------------
+TP3 Next.js
+
+ Q1 : Run npx prisma studio. Voyez-vous les données dans les tables Project et User ?
+ 
+ Oui.
+
+ Q2 : Comparez ce code avec l’ancien (fs.readFileSync + JSON.parse + push +
+writeFileSync). Combien de lignes en moins ?
+
+Le nouveau code avec Prisma élimine la gestion manuelle du fichier JSON et permet d'économiser environ 16 lignes,
+ réduisant ainsi la taille du fichier de moitié (15 lignes contre 31).
+
+ Q3 : Supprimez db.json. L’app fonctionne-t-elle toujours ? Pourquoi ?
+
+ Oui, l'application fonctionne toujours car toutes les données sont désormais stockées et gérées dans une 
+ base de données via Prisma, rendant le fichier db.json totalement inutile.
+
+
+ Q4 : Pourquoi le Server Component peut appeler prisma.project.findMany() directement
+mais un Client Component ('use client') ne peut PAS ?
+
+Le Server Component s'exécute de manière sécurisée côté serveur (Node.js), tandis qu'un Client Component s'exécute dans le navigateur où l'accès direct à la base de données est techniquement impossible et exposerait vos mots de passe.
+
+
+Q5 : Ouvrez F12 > Network > Font. Combien de requêtes externes voyez-vous pour la
+police ?
+
+Zéro ! La police est téléchargée au build et servie localement par Next.js.
+
+
+Q6 : Avec generateStaticParams, les pages /projects/1 et /projects/2 sont générées quand
+? Au build ou à chaque requête ?
+
+Elles sont générées au moment du build
+
+
+Q7 : Si un nouveau projet est créé après le build, la page /projects/3 existe-t-elle ?
+
+Oui, elle sera générée dynamiquement lors de la première requête car dynamicParams est activé par défaut.
