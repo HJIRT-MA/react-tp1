@@ -34,3 +34,4 @@ export async function DELETE(request: Request, { params }: RouteParams) {
   
   return new NextResponse(null, { status: 204 });
 }
+

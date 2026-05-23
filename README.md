@@ -187,3 +187,7 @@ Elles sont générées au moment du build
 Q7 : Si un nouveau projet est créé après le build, la page /projects/3 existe-t-elle ?
 
 Oui, elle sera générée dynamiquement lors de la première requête car dynamicParams est activé par défaut.
+
+
+
+https://react-tp1-2qdd7yqng-amineam2003-9352s-projects.vercel.app

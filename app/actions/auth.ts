@@ -31,6 +31,6 @@ export async function logoutAction() {
     const cookieStrore = await cookies();
     
     cookieStrore.delete('session')
-    redirect('login')
+    redirect('/login')
 }
 
