@@ -188,6 +188,11 @@ Q7 : Si un nouveau projet est créé après le build, la page /projects/3 existe
 
 Oui, elle sera générée dynamiquement lors de la première requête car dynamicParams est activé par défaut.
 
+Q8: 
+https://react-tp1-oq1pb8lfg-amineam2003-9352s-projects.vercel.app
 
 
-https://react-tp1-2qdd7yqng-amineam2003-9352s-projects.vercel.app
+Q10: Si vous deviez créer une startup demain, choisiriez-vous React SPA + Express ou
+Next.js full-stack ? Pourquoi ?$
+
+Je choisirais Next.js Full-Stack pour sa rapidité de développement (un seul code base) et son excellent SEO, qui sont vitaux pour la vitesse de lancement d'une startup.
